@@ -1,0 +1,58 @@
+# ---------------------------------------------------------------------------
+# Copenhagen Fishing Forecast — configuration
+#
+# These are the knobs you actually turn. Edit freely; the code reads this file
+# on every run. Species/seasonality data lives in fishing_forecast/species.py
+# because it is reference data rather than something you tweak day to day.
+# ---------------------------------------------------------------------------
+
+# Shore-fishing spots to evaluate. Coordinates only need to be roughly right —
+# the weather model grid is a few km in resolution anyway.
+spots:
+  - name: Nordhavn
+    latitude: 55.7140
+    longitude: 12.5990
+    notes: "Breakwaters and harbour edges near Sandkaj; deeper water close to the channel."
+  - name: Sydhavn
+    latitude: 55.6450
+    longitude: 12.5360
+    notes: "Sheltered canals around Sluseholmen and Teglholmen; shallower, with weed beds."
+
+# How far ahead to plan, in days from the day the script runs. The point is to
+# give you enough notice to actually book the time off — so 2 to 7 days out.
+planning_window:
+  min_days: 2
+  max_days: 7
+
+# Minimum star rating (0–5) a window must reach before you get an email.
+# 3.5 = "decent-to-good and worth planning around". Raise it for fewer, better
+# alerts; lower it to hear about more marginal windows.
+alert_threshold: 3.5
+
+# Dawn and dusk are the windows worth fishing, so those are the only ones
+# scored. Offsets are in hours relative to sunrise/sunset (negative = before).
+daypart:
+  dawn_start_offset: -0.75   # window opens 45 min before sunrise
+  dawn_end_offset: 2.5       # ... and closes 2h30 after
+  dusk_start_offset: -2.5    # window opens 2h30 before sunset
+  dusk_end_offset: 0.75      # ... and closes 45 min after
+
+# Scoring weights. Each factor is scored 0–1, then combined with these weights.
+# They must sum to 1.0 (the code checks this and will refuse to run otherwise).
+weights:
+  wind: 0.35           # dominant factor for shore casting
+  precipitation: 0.15  # light drizzle is fine; heavy rain is not
+  cloud: 0.12          # overcast generally helps, especially for sea trout
+  pressure: 0.12       # stable or gently rising pressure preferred
+  solunar: 0.16        # sun/moon feeding-period signal (a soft heuristic)
+  water_temp: 0.06     # penalises extremes; mostly drives species choice
+  wave: 0.04           # minor in sheltered harbour water; a comfort/safety check
+
+# IANA timezone — used for "today", the planning window, and all displayed times.
+timezone: Europe/Copenhagen
+
+# Where the email is sent. Credentials come from environment variables / GitHub
+# secrets (ICLOUD_EMAIL, ICLOUD_APP_PASSWORD), never from this file.
+email:
+  recipient: spence.constantin@icloud.com
+  subject_prefix: "Fishing window"

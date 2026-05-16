@@ -1,0 +1,66 @@
+name: Fishing forecast
+
+# Runs once a day and, separately, on demand from the Actions tab.
+on:
+  schedule:
+    # 06:00 UTC — 07:00 in Copenhagen in winter, 08:00 in summer.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — build the email but do not send it"
+        type: boolean
+        default: false
+
+# The job commits the updated sent log back to the repo, so it needs write access.
+permissions:
+  contents: write
+
+jobs:
+  forecast:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run the forecast
+        env:
+          ICLOUD_EMAIL: ${{ secrets.ICLOUD_EMAIL }}
+          ICLOUD_APP_PASSWORD: ${{ secrets.ICLOUD_APP_PASSWORD }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python run.py --dry-run --verbose
+          else
+            python run.py --verbose
+          fi
+
+      # On a dry run, make the generated email downloadable from the run page.
+      - name: Upload dry-run email
+        if: ${{ inputs.dry_run == true }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: dry-run-email
+          path: output/
+          if-no-files-found: ignore
+
+      # On a real run, persist the sent log so tomorrow's run does not repeat itself.
+      - name: Commit updated sent log
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          if [ -n "$(git status --porcelain data/sent_log.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/sent_log.json
+            git commit -m "Update sent log [skip ci]"
+            git push
+          else
+            echo "No change to the sent log — nothing to commit."
+          fi
