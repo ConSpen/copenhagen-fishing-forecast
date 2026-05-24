@@ -250,5 +250,33 @@
     "daypart": "dusk",
     "stars": 4.5,
     "sent_at": "2026-05-23T10:25:58"
+  },
+  {
+    "date": "2026-05-31",
+    "spot": "Nordhavn",
+    "daypart": "dawn",
+    "stars": 5.0,
+    "sent_at": "2026-05-24T10:36:42"
+  },
+  {
+    "date": "2026-05-31",
+    "spot": "Sydhavn",
+    "daypart": "dawn",
+    "stars": 5.0,
+    "sent_at": "2026-05-24T10:36:42"
+  },
+  {
+    "date": "2026-05-26",
+    "spot": "Nordhavn",
+    "daypart": "dawn",
+    "stars": 4.5,
+    "sent_at": "2026-05-24T10:36:42"
+  },
+  {
+    "date": "2026-05-27",
+    "spot": "Sydhavn",
+    "daypart": "dusk",
+    "stars": 4.5,
+    "sent_at": "2026-05-24T10:36:42"
   }
 ]
