@@ -1,33 +1,5 @@
 [
   {
-    "date": "2026-06-02",
-    "spot": "Nordhavn",
-    "daypart": "dawn",
-    "stars": 4.5,
-    "sent_at": "2026-05-28T12:13:42"
-  },
-  {
-    "date": "2026-06-02",
-    "spot": "Sydhavn",
-    "daypart": "dawn",
-    "stars": 4.5,
-    "sent_at": "2026-05-29T12:03:44"
-  },
-  {
-    "date": "2026-06-02",
-    "spot": "Sydhavn",
-    "daypart": "dusk",
-    "stars": 4.5,
-    "sent_at": "2026-05-29T12:03:44"
-  },
-  {
-    "date": "2026-06-02",
-    "spot": "Nordhavn",
-    "daypart": "dusk",
-    "stars": 4.5,
-    "sent_at": "2026-05-29T12:03:44"
-  },
-  {
     "date": "2026-06-03",
     "spot": "Nordhavn",
     "daypart": "dawn",
@@ -509,5 +481,33 @@
     "daypart": "dawn",
     "stars": 4.5,
     "sent_at": "2026-06-16T13:21:22"
+  },
+  {
+    "date": "2026-06-20",
+    "spot": "Nordhavn",
+    "daypart": "dusk",
+    "stars": 4.5,
+    "sent_at": "2026-06-17T13:06:22"
+  },
+  {
+    "date": "2026-06-20",
+    "spot": "Sydhavn",
+    "daypart": "dusk",
+    "stars": 4.5,
+    "sent_at": "2026-06-17T13:06:22"
+  },
+  {
+    "date": "2026-06-21",
+    "spot": "Nordhavn",
+    "daypart": "dawn",
+    "stars": 4.5,
+    "sent_at": "2026-06-17T13:06:22"
+  },
+  {
+    "date": "2026-06-21",
+    "spot": "Sydhavn",
+    "daypart": "dawn",
+    "stars": 4.5,
+    "sent_at": "2026-06-17T13:06:22"
   }
 ]
